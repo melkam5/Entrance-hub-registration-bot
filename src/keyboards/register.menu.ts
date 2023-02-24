@@ -1,24 +1,26 @@
 import { Menu } from "@grammyjs/menu"
 import { getBankData, dataclearedamh, datacleared } from "../functions"
-import { selectStream, selectBank, whichGrade } from "../keyboards"
 import { MyContext } from "../types/context.type"
+import { loc } from "../config/locales"
+import { lan } from "../middlewares/fechUserData.middleware"
+import { ObjectKey } from "../types/loc.type"
 
 
 const registerMenu = new Menu<MyContext>("register-menu", { onMenuOutdated: false })
     .submenu("▫️ Grade 12", "grade-12", async (ctx) => {
-           await ctx.editMessageCaption({caption : selectStream})    
+           await ctx.editMessageCaption({caption : loc[lan as ObjectKey].message_select_stream})    
     }).row()
 
 
 const subg12 = new Menu<MyContext>("grade-12")
     .submenu("▫️ Social Science" , "choose-bank" , async (ctx) => {
         ctx.session.stream = 'so'
-        await ctx.editMessageCaption({caption : selectBank})
+        await ctx.editMessageCaption({caption : loc[lan as ObjectKey].message_select_Bank })
     }).submenu("▫️ Natural Science" ,"choose-bank" ,async (ctx)=>{
         ctx.session.stream = 'na'
-        await ctx.editMessageCaption({caption : selectBank})}).row()
+        await ctx.editMessageCaption({caption : loc[lan as ObjectKey].message_select_Bank})}).row()
     .back("⬅️ Back", async (ctx) => {
-        await ctx.editMessageCaption({caption : whichGrade})
+        await ctx.editMessageCaption({caption : loc[lan as ObjectKey].message_select_grade})
     })
     
 
@@ -54,7 +56,7 @@ const choosebank = new Menu<MyContext>("choose-bank",{onMenuOutdated: "Updated, 
         ctx.session.bank = 'cooppay'
         await ctx.editMessageCaption({caption : getBankData('cooppay', ctx)||''})}).row()
     .back("⬅️ ተመለስ", async (ctx)=> {
-        await ctx.editMessageCaption({caption : selectStream})
+        await ctx.editMessageCaption({caption : loc[lan as ObjectKey].message_select_stream})
     })
     .text("⏺ መረጃውን ስርዝ" , async  (ctx)=>{
         await ctx.editMessageCaption({ caption : dataclearedamh, reply_markup: { inline_keyboard: []}})
@@ -68,7 +70,7 @@ const payMenu = new Menu<MyContext>("pay-menu", {onMenuOutdated: "Updated, try n
         ctx.session.stream =''
     })
     .back("➖ Back", async (ctx)=> {
-        await ctx.editMessageCaption({caption : selectBank })}).row()
+        await ctx.editMessageCaption({caption : loc[lan as ObjectKey].message_select_Bank })}).row()
     .text("✔️ Passed ", async (ctx)=>{
         await ctx.editMessageCaption( {caption : '✔️ Passed', reply_markup: { inline_keyboard: []}})
         await ctx.conversation.enter("approvalConvo");
