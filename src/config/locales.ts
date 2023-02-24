@@ -88,7 +88,14 @@ export const loc  = {
     
       ▪️ Select your Stream . 
            
-    ➖➖➖➖➖➖➖➖➖➖➖➖➖➖`
+    ➖➖➖➖➖➖➖➖➖➖➖➖➖➖` ,
+                message_data_cleared_two: `
+➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+⁉️ your data is cleared  
+
+➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+                `
     ,
 message_helpmenu_one : `‼️ወደ Entrance Hub Ethiopia ለመዝገብ ምን ምን ያስፈልገኛል❓ 
 
@@ -233,6 +240,14 @@ Baraa barnotaa garii akkaa isiinif ta'uuf asuman hawwii keenya ibsinaa    🔆�
 
   ▪️ Select your Stream . 
        
-➖➖➖➖➖➖➖➖➖➖➖➖➖➖`
+➖➖➖➖➖➖➖➖➖➖➖➖➖➖` ,
+
+message_data_cleared_two: `
+➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+⁉️ your data is cleared  
+
+➖➖➖➖➖➖➖➖➖➖➖➖➖➖
+                `
     }
 }

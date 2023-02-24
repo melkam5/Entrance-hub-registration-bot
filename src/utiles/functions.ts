@@ -11,7 +11,7 @@ const phoneKeyboard = new Keyboard()
 phoneKeyboard.requestContact("Share contact").resized()
 
 
-const approval = new InlineKeyboard()
+export const approval = new InlineKeyboard()
     .text("Decline" , `decline`)
     .text("Approve" , `approve`)
 
@@ -19,14 +19,6 @@ const approval = new InlineKeyboard()
 export const langInlineKeyboard = new InlineKeyboard()
 .text("English" , "eng")
 .text("አማርኛ" ,"amh")
-
-/*
-export const inviteInlineKeyboard = new InlineKeyboard()
-.text("Share" , "shr").text("status" , "stt").row()
-.text("How does it work ?")    
-*/
-
-
 
 export async function askLanguage (ctx: MyContext) {
 	

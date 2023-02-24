@@ -1,9 +1,9 @@
 import { Menu } from "@grammyjs/menu"
-import { getBankData, dataclearedamh, datacleared } from "../utiles/utiles"
 import { MyContext } from "../types/context.type"
 import { loc } from "../config/locales"
 import { lan } from "../middlewares/fechUserData.middleware"
 import { ObjectKey } from "../types/loc.type"
+import { getBankData } from "../utiles/functions"
 
 
 const registerMenu = new Menu<MyContext>("register-menu", { onMenuOutdated: false })
@@ -59,13 +59,13 @@ const choosebank = new Menu<MyContext>("choose-bank",{onMenuOutdated: "Updated, 
         await ctx.editMessageCaption({caption : loc[lan as ObjectKey].message_select_stream})
     })
     .text("⏺ መረጃውን ስርዝ" , async  (ctx)=>{
-        await ctx.editMessageCaption({ caption : dataclearedamh, reply_markup: { inline_keyboard: []}})
+        await ctx.editMessageCaption({ caption : loc[lan as ObjectKey].message_data_cleared_two, reply_markup: { inline_keyboard: []}})
         })
 
 
 const payMenu = new Menu<MyContext>("pay-menu", {onMenuOutdated: "Updated, try now."})
     .text("✖️ Clear data" ,async (ctx)=>{
-        await ctx.editMessageCaption({caption : datacleared, reply_markup: {inline_keyboard: []}})
+        await ctx.editMessageCaption({caption :loc[lan as ObjectKey].message_data_cleared_two , reply_markup: {inline_keyboard: []}})
         ctx.session.bank = ''
         ctx.session.stream =''
     })
