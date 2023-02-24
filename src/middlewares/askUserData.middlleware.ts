@@ -2,7 +2,7 @@ import { NextFunction, InlineKeyboard } from "grammy";
 import { bot } from "../bot";
 import { public_channel, public_channel_link } from "../config/botData";
 import { loc } from "../config/locales";
-import { askLanguage, askPhoneNo } from "../functions";
+import { askLanguage, askPhoneNo } from "../utiles/functions";
 import { MyContext } from "../types/context.type";
 import { ObjectKey } from "../types/loc.type";
 import { lan } from "./fechUserData.middleware";

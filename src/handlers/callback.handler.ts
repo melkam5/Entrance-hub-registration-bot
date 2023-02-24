@@ -1,22 +1,22 @@
 import { Composer } from "grammy";
-import { helpmenu1, helpmenu2, helpmnu3 } from "../functions";
 import helpinlinekb from "../keyboards/help.inline.keyboard";
 import mainMenu from "../keyboards/mainmenu.custom.keyboard";
 import { MyContext } from "../types/context.type";
+import { loc } from "../config/locales";
 
 
 const composer = new Composer <MyContext> ();
 
 composer.callbackQuery('whatneed' , async(ctx)=>{
-    await ctx.editMessageText(helpmenu1 )
+    await ctx.editMessageText(loc.eng.message_helpmenu_one )
     await ctx.editMessageReplyMarkup( {reply_markup : helpinlinekb})
 })
 composer.callbackQuery('howtoregister' , async(ctx)=>{
-    await ctx.editMessageText(helpmenu2)
+    await ctx.editMessageText(loc.eng.message_helpmenu_two)
     await ctx.editMessageReplyMarkup( {reply_markup : helpinlinekb})
 }) 
 composer.callbackQuery('whatneedoro', async(ctx)=>{
-    await ctx.editMessageText(helpmnu3)
+    await ctx.editMessageText(loc.eng.message_helpmenu_tree)
     await ctx.editMessageReplyMarkup( {reply_markup : helpinlinekb})
 })
 

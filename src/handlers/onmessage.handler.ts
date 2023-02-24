@@ -1,7 +1,7 @@
 import { Composer } from "grammy";
 import { photoPyment, photoInvite, photoContact, messangeradmin } from "../config/botData";
 import { loc } from "../config/locales";
-import { whichGrade, askLanguage, helpmenu1 } from "../functions";
+import { askLanguage} from "../utiles/functions";
 import feedbackmenu from "../keyboards/feedback.menu";
 import helpinlinekb from "../keyboards/help.inline.keyboard";
 import inviteMenu from "../keyboards/invite.menu";
@@ -24,7 +24,7 @@ composer.on("message:text" , async (ctx)=>{
             await ctx.reply(loc[lan as ObjectKey].message_wait_forReview)
         }
         else {
-            await ctx.api.sendPhoto(ctx.chat.id, photoPyment, { caption : whichGrade, reply_markup: registerMenu })
+            await ctx.api.sendPhoto(ctx.chat.id, photoPyment, { caption : loc[lan as ObjectKey].message_select_grade , reply_markup: registerMenu })
         }
     }
     else if(ctx.msg.text == '🧧 Invite' || ctx.msg.text == '🧧 ጋብዝ' || ctx.msg.text == '/invite' ) {
@@ -79,7 +79,7 @@ composer.on("message:text" , async (ctx)=>{
             }
 
     else if(ctx.msg.text == '❓ Help' || ctx.msg.text == '❓ እርዳታ'|| ctx.msg.text == '/help' ) {
-        await ctx.reply(helpmenu1 , {reply_markup : helpinlinekb});
+        await ctx.reply( loc.eng.message_helpmenu_one, {reply_markup : helpinlinekb});
     }
     else if (ctx.msg.text == '🖌 አስተያየት' || ctx.msg.text == '🖌 FeedBack'|| ctx.msg.text == '/help'){
         

@@ -1,5 +1,5 @@
 import { Menu } from "@grammyjs/menu"
-import { getBankData, dataclearedamh, datacleared } from "../functions"
+import { getBankData, dataclearedamh, datacleared } from "../utiles/utiles"
 import { MyContext } from "../types/context.type"
 import { loc } from "../config/locales"
 import { lan } from "../middlewares/fechUserData.middleware"

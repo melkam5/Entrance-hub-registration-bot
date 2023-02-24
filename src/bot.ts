@@ -1,6 +1,6 @@
 import { conversations, createConversation } from "@grammyjs/conversations";
 import { Bot } from "grammy";
-import { connectDataBase, nameConvo, schoolConvo, approvalConvo, feedbackConvo, cashOutConvo, adminConvo } from "./functions";
+import { connectDataBase, nameConvo, schoolConvo, approvalConvo, feedbackConvo, cashOutConvo, adminConvo } from "./utiles/utiles";
 import feedbackmenu from "./keyboards/feedback.menu";
 import inviteMenu from "./keyboards/invite.menu";
 import registerMenu from "./keyboards/register.menu";
