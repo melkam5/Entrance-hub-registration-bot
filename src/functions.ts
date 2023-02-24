@@ -1,8 +1,3 @@
-
-/********
- * Keyboards
- */
-
 import { Keyboard, InlineKeyboard } from "grammy"
 import { connect } from "mongoose"
 import { cbe, coop, telebirr, cbebirr, awash, nib, cooppay, nibbirr } from "./config/bankData"
