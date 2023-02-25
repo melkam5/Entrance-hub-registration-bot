@@ -56,8 +56,7 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
                       invitedId : ctx.chat.id 
                     },
                   })
-                
-                
+
             }
         }
     }
@@ -75,17 +74,26 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
     if(ctx.session.stream != ''){
         ctx.userData.stream = ctx.session.stream
     }
-    if(await UserDB.exists({tg_id : ctx.chat.id})){
-        tempUserdb = await UserDB.findById(await UserDB.exists({tg_id : ctx.chat.id}))
+    if( await prisma.user.findFirst({where : {tg_id :ctx.chat.id  }})){
+        tempUserdb = await prisma.user.findFirst({where : {tg_id :ctx.chat.id  }})
         if(tempUserdb) {
-            tempUserdb.set(ctx.userData )
-            await tempUserdb.save();
-            
+
+             await prisma.user.update({
+                where : {
+                    tg_id : ctx.chat.id 
+                },
+                data : {
+                    ctx.userData
+                }
+            })
         }
     }
     else {
-        tempUserdb = new UserDB(ctx.userData);
-        await tempUserdb.save();
+        await  prisma.user.create({
+            data : {
+                ctx.userData
+            }
+        })
     }
     }
 }
