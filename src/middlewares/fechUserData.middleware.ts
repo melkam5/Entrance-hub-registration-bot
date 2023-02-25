@@ -11,14 +11,12 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
     let tempUserdb ;
 
     if (ctx.chat && ctx.chat.type != 'group' && ctx.chat.type != 'supergroup' && ctx.chat.type != 'channel' )  {
-        
         ctx.session.feedback = await prisma.feedback.count();
-        console.log(ctx.session.feedback);
 
+    userDatatemp = await prisma.user.findFirst({where : {tg_id : ctx.chat.id }})
 
-    if(await prisma.user.findFirst({where : {tg_id : ctx.chat.id }})) {
-        userDatatemp = await prisma.user.findFirst({where : {tg_id : ctx.chat.id }})
-       // ctx.userData = userDatatemp ;
+    if( userDatatemp) {
+       ctx.userData = userDatatemp
     }
 
     else {
@@ -32,10 +30,7 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
 			phone_number: '',
             stream: '',
 			school : '',
-           // registered : -1 ,
-           // isInvitedBy : 0 ,
-			//invited : [0] ,
-			payed : [0] ,
+			payed : 0 ,
 			points : 0 ,
             credited : 0
 		}
@@ -56,45 +51,41 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
                       invitedId : ctx.chat.id 
                     },
                   })
-
             }
         }
     }
 
-    ctx.userData.lang != '' ? lan=ctx.userData.lang : lan='eng';
-    // await next();
+    ctx.userData.lang != null ? lan=ctx.userData.lang : lan='eng';
+    await next();
     
 
-    if(ctx.session.rname != '' && ctx.userData.registered_name == '' ){
+    if(ctx.session.rname != '' && !ctx.userData.registered_name){
         ctx.userData.registered_name = ctx.session.rname
     } 
-    if(ctx.session.schooln != '' && ctx.userData.school == '' ){
+    if(ctx.session.schooln != '' && !ctx.userData.school ){
         ctx.userData.school = ctx.session.schooln
     }
     if(ctx.session.stream != ''){
         ctx.userData.stream = ctx.session.stream
     }
-    if( await prisma.user.findFirst({where : {tg_id :ctx.chat.id  }})){
-        tempUserdb = await prisma.user.findFirst({where : {tg_id :ctx.chat.id  }})
-        if(tempUserdb) {
 
-             await prisma.user.update({
-                where : {
-                    tg_id : ctx.chat.id 
-                },
-                data : {
-                    ctx.userData
-                }
-            })
-        }
+    if( await prisma.user.findFirst({where : {tg_id :ctx.chat.id  }})){
+        await prisma.user.update({
+            where : {
+                tg_id : ctx.chat.id 
+            },
+            data : 
+                ctx.userData
+            
+        })
     }
     else {
         await  prisma.user.create({
-            data : {
+            data : 
                 ctx.userData
-            }
         })
-    }
+       
+    } 
     }
 }
 
