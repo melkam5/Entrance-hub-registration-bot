@@ -45,23 +45,23 @@ export const loc  = {
             message_select_option : 'Select an option',
 
             message_invite_join:(ctx : MyContext )=>`Hey ${ctx.userData.first_name} ,
-            Please Join our Channel with the button below to continue 😊.`,
+Please Join our Channel with the button below to continue 😊.`,
             message_invite_page : (ctx : MyContext) => `
-            ➖➖➖➖➖➖➖➖➖➖➖➖➖
-           
-            🎖  Your current  point is ${(ctx.userData.points*referalBonus.point_valueBirr)-ctx.userData.credited} Birr
-            👥  Invited people ${ctx.userData.invited.length-1} 
-            🫂  Successfully joined people ${ctx.userData.payed.length-1}
-           
-            💰 Cashed out Amount:  ${ctx.userData.credited} Birr
-           
-            ➖➖➖➖➖➖➖➖➖➖➖➖➖
-            💥 The percent per successfully joined people is ${referalBonus.point_value}% .
-            💰 The minimum amount you can withdraw is ${referalBonus.minwith_value} Birr .
-                   ㅤ
-                   
-            👇 Share this link to invite :
-             https://t.me/${bot_user_name}?start=ehr${ctx.userData.tg_id}
+➖➖➖➖➖➖➖➖➖➖➖➖➖
+
+🎖  Your current  point is ${(ctx.userData.points*referalBonus.point_valueBirr)-ctx.userData.credited} Birr
+👥  Invited people ${ctx.refferalData.invited} 
+🫂  Successfully joined people ${ctx.refferalData.payed}
+
+💰 Cashed out Amount:  ${ctx.userData.credited} Birr
+
+➖➖➖➖➖➖➖➖➖➖➖➖➖
+💥 The percent per successfully joined people is ${referalBonus.point_value}% .
+💰 The minimum amount you can withdraw is ${referalBonus.minwith_value} Birr .
+    ㅤ
+    
+👇 Share this link to invite :
+https://t.me/${bot_user_name}?start=ehr${ctx.userData.tg_id}
                   ` ,
             message_contact : `📥 Contact us
             ➖➖➖➖➖➖➖➖➖➖➖➖➖

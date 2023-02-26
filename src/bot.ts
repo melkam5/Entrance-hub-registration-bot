@@ -12,6 +12,8 @@ import { nameConvo, schoolConvo, approvalConvo, feedbackConvo, cashOutConvo, adm
 import { connectDataBase } from "./utiles/functions";
 
 
+
+connectDataBase()
 export const bot = new Bot<MyContext>(process.env.BOT_TOKEN || '')
 
 

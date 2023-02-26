@@ -6,14 +6,17 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promise<void> => {
-
     let userDatatemp ;
-    let tempUserdb ;
 
     if (ctx.chat && ctx.chat.type != 'group' && ctx.chat.type != 'supergroup' && ctx.chat.type != 'channel' )  {
         ctx.session.feedback = await prisma.feedback.count();
-
+    
     userDatatemp = await prisma.user.findFirst({where : {tg_id : ctx.chat.id }})
+    ctx.refferalData = {
+        invited :await prisma.refferal.count({where : { invitorId : ctx.chat?.id}}) ,
+        payed :await prisma.refferal.count({where : { invitorId : ctx.chat?.id, NOT : {invited : {registered : null }} }})
+    
+    } 
 
     if( userDatatemp) {
        ctx.userData = userDatatemp
@@ -54,6 +57,7 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
             }
         }
     }
+
 
     ctx.userData.lang != null ? lan=ctx.userData.lang : lan='eng';
     await next();

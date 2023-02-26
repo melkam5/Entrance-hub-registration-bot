@@ -10,17 +10,33 @@ import registerMenu from "../keyboards/register.menu";
 import { lan } from "../middlewares/fechUserData.middleware";
 import { MyContext } from "../types/context.type";
 import { ObjectKey } from "../types/loc.type";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
 
 
 const composer  = new Composer <MyContext> ();
 
+composer.on("message:contact" , async (ctx)=>{
+	
+	if(!ctx.userData.phone_number){
+		ctx.userData.phone_number=ctx.message.contact.phone_number
+        await ctx.reply('Contact registerd ✔️ ', {
+            reply_markup: mainMenu,
+        });
+        
+	}
+	
+})
+
 
 composer.on("message:text" , async (ctx)=>{
     if(ctx.msg.text == '❇️ Register'|| ctx.msg.text == '❇️ ለመመዝገብ' || ctx.msg.text == '/register' ) {
-        if(ctx.userData.registered == 1) {
+        if( await prisma.registeredStudent.findFirst({where : {stusent_tg_Id : ctx.chat.id}})) {
             await ctx.reply(loc[lan as ObjectKey].message_notify_registerd);
         }
-        else if (ctx.userData.registered == 0 ){
+        else if (await prisma.waitingListStudent.findFirst({where : {stusent_tg_Id : ctx.chat.id}})){
             await ctx.reply(loc[lan as ObjectKey].message_wait_forReview)
         }
         else {
@@ -30,24 +46,6 @@ composer.on("message:text" , async (ctx)=>{
     else if(ctx.msg.text == '🧧 Invite' || ctx.msg.text == '🧧 ጋብዝ' || ctx.msg.text == '/invite' ) {
        
         await ctx.api.sendPhoto(ctx.chat.id , photoInvite , { caption : loc[lan as ObjectKey].message_invite_page(ctx), reply_markup: inviteMenu})
-
-/* `
-➖➖➖➖➖➖➖➖➖➖➖➖➖
-
-🎖  አሁን ያለዎት ${(ctx.userData.points*point_valueBirr)-ctx.userData.credited} ብር
-👥  የጋበዙት ሰው ብዛት ${ctx.userData.invited.length-1} 
-🫂  ከጋበዙቸው ሰወች ውስጥ ክፍያ የፈጸሙት ብዛት ${ctx.userData.payed.length-1} 
-
-💰 ከዚ በፊት ያወጡት ብር  ${ctx.userData.credited} ብር
-
-➖➖➖➖➖➖➖➖➖➖➖➖➖
-💥  በአንድ ክፍያዉን ፈጽሞ በገባ ሰዉ የሚያገኙት ነጥብ ${point_value}% ነው
-💰 ዝቅተኛ ማውጣት የሚችሉት የገንዘብ መጠን ${minwith_value} ብር 
-        ㅤ
-        
-👇 ለመጋበዝ ለወዳጅዎ ይህንን ሊንክ ያጋሩ :
-    https://t.me/${bot_user_name}?start=ehr${ctx.userData.tg_id}
-` */
     }
     
     else if(ctx.msg.text == '🌐 Language' || ctx.msg.text =='🌐 ቋንቋ' || ctx.msg.text == '/lang' ) {

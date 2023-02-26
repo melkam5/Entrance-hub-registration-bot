@@ -2,6 +2,9 @@ import { admin_one } from "../config/botData"
 import { FeedbackData } from "../dbModel"
 import { MyConversation, MyContext } from "../types/context.type"
 import { approval, askPhoneNo } from "./functions"
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export async function nameConvo(conversation :MyConversation, ctx : MyContext) {
     let nameq = '' , schoolq = ''
@@ -81,39 +84,31 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
     
     if(ctx.message?.photo || ctx.message?.document){
         if(ctx.message?.photo) {
-            if(await ctx.api.sendPhoto(admin_one, ctx.message.photo[0].file_id, { 
-                caption: `Id : [ ${ctx.chat?.id} ] 
-    ➖➖➖➖➖➖➖➖➖➖
-    Name : ${ctx.userData.registered_name}
-    UserName : ${ctx.userData.username}
-    Phone_No : ${ctx.userData. phone_number}
-    Bank : ${ctx.session.bank}
-    Stream : ${ctx.session.stream}
-    ➖➖➖➖➖➖➖➖➖➖
-    Caption : ${ctx.message.caption}
-    ➖➖➖➖➖➖➖➖➖➖`
-            , reply_markup : approval 
-        })){
-            ctx.userData.registered = 0 ;
+            if(await ctx.api.sendPhoto(2007481788, ctx.message.photo[0].file_id)){
+                if(await prisma.waitingListStudent.create({
+                    data : {
+                        student : {
+                            connect : {
+                                tg_id : ctx.chat?.id
+                            }
+                        }
+                    }
+                }))
             await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
         }}
         
         else if (ctx.message?.document){
+            if(await ctx.api.sendDocument(2007481788, ctx.message.document.file_id)){
+                if(await prisma.waitingListStudent.create({
+                    data : {
+                        student : {
+                            connect : {
+                                tg_id : ctx.chat?.id
+                            }
+                        }
+                    }
+                }))
 
-        if(await ctx.api.sendDocument(admin_one , ctx.message.document.file_id, { 
-            caption: `Id : [ ${ctx.chat?.id} ] 
-    ➖➖➖➖➖➖➖➖➖➖
-    Name : ${ctx.userData.registered_name}
-    UserName : ${ctx.userData.username}
-    Phone_No : ${ctx.userData. phone_number}
-    Bank : ${ctx.session.bank}
-    Stream : ${ctx.session.stream}
-    ➖➖➖➖➖➖➖➖➖➖
-    Caption : ${ctx.message.caption}
-    ➖➖➖➖➖➖➖➖➖➖`
-        , reply_markup : approval 
-        })){
-            ctx.userData.registered = 0 
             await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
         }}
         /*
@@ -171,9 +166,9 @@ export async function cashOutConvo(conversation : MyConversation, ctx : MyContex
  Name : ${ctx.userData.registered_name}
  UserName : ${ctx.userData.username}
  Phone_No : ${ctx.userData. phone_number}
- Invited  : ${ctx.userData.invited.length-1}
- Joined   : ${ctx.userData.payed.length-1}
- Current Balance :${((ctx.userData.payed.length-1)*22.5 - ctx.userData.credited)}
+ Invited  : ${ctx.refferalData.invited}
+ Joined   : ${ctx.refferalData.payed}
+ Current Balance :${((ctx.refferalData.payed)*22.5 - ctx.userData.credited)}
  Credited : ${ctx.userData.credited}
  +++++++++++++++++++
  BankAccount : ${bankaccount}
