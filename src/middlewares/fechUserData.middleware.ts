@@ -1,7 +1,6 @@
-import { NextFunction } from "grammy";
-import { FeedbackData, UserDB } from "../dbModel";
-import { MyContext } from "../types/context.type";
 import { PrismaClient } from "@prisma/client";
+import { NextFunction } from "grammy";
+import { MyContext } from "../types/context.type";
 
 const prisma = new PrismaClient();
 

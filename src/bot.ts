@@ -9,11 +9,15 @@ import { sessionMid } from "./middlewares/session.middleware";
 import { MyContext } from "./types/context.type";
 import handler from './handlers'
 import { nameConvo, schoolConvo, approvalConvo, feedbackConvo, cashOutConvo, adminConvo } from "./utiles/conversations";
-import { connectDataBase } from "./utiles/functions";
 
 
+export const io = require("socket.io")(3000, {
+	cors: {
+	  origin: [process.env.ADMIN_FRONT_END_URL],
+	},
+  })
 
-connectDataBase()
+
 export const bot = new Bot<MyContext>(process.env.BOT_TOKEN || '')
 
 

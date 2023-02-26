@@ -1,10 +1,7 @@
 import { Keyboard, InlineKeyboard } from "grammy"
-import { connect } from "mongoose"
 import { cbe, coop, telebirr, cbebirr, awash, nib, cooppay, nibbirr } from "../config/bankData"
-import { connection_url, admin_one, referalBonus } from "../config/botData"
-import { FeedbackData } from "../dbModel"
-import { MyContext, MyConversation } from "../types/context.type"
-
+import { referalBonus } from "../config/botData"
+import { MyContext } from "../types/context.type"
  
 
 const phoneKeyboard = new Keyboard()
@@ -77,16 +74,5 @@ export function getBankData(bname : string , ctx :MyContext ){
 
 }
 
-export async function connectDataBase() {
-    console.log(`......`)
-    try {
-        await connect(connection_url);
-        console.log("Connected to mongoDB");
-        }
-        
-    catch (error) {
-        console.error(error);
-    }
-}
 
 

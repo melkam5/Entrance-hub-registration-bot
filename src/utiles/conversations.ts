@@ -1,8 +1,9 @@
-import { admin_one } from "../config/botData"
-import { FeedbackData } from "../dbModel"
-import { MyConversation, MyContext } from "../types/context.type"
-import { approval, askPhoneNo } from "./functions"
 import { PrismaClient } from "@prisma/client";
+import { admin_one } from "../config/botData";
+import { MyConversation, MyContext } from "../types/context.type";
+import { askPhoneNo } from "./functions";
+import { io } from "../bot";
+
 
 const prisma = new PrismaClient();
 
@@ -94,6 +95,10 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                         }
                     }
                 }))
+                io.on("connection", (socketio: { id: any; }) => {
+                    console.log("''''");
+                });
+                  
             await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
         }}
         
@@ -111,21 +116,6 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
 
             await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
         }}
-        /*
-        else if (ctx.message?.text){
-            await ctx.api.sendMessage(admin_one , `Id : [ ${ctx.chat?.id} ] 
-    ➖➖➖➖➖➖➖➖➖➖
-    Name : ${ctx.userData.registered_name}
-    UserName : ${ctx.userData.username}
-    Phone_No : ${ctx.userData. phone_number}
-    Bank : ${ctx.session.bank}
-    Stream : ${ctx.session.stream}
-    ➖➖➖➖➖➖➖➖➖➖
-    Transaction_Id : ${ctx.message.text}
-    ➖➖➖➖➖➖➖➖➖➖` 
-        , {reply_markup : approval
-        })}*/
-        
     }
 }
 
@@ -177,9 +167,6 @@ export async function cashOutConvo(conversation : MyConversation, ctx : MyContex
 )}
 
 
-
-/********************************** */
-
 export async function feedbackConvo (conversation : MyConversation, ctx : MyContext ){
     do {
         if(ctx.userData.lang == "eng")
@@ -206,17 +193,6 @@ export async function feedbackConvo (conversation : MyConversation, ctx : MyCont
             )
             await ctx.reply("አስተያየትዎን ተቀብለናል እናመሰግናለን ")
         }
-           
-            
-        /*if(ctx.message?.audio){
-            await new FeedbackData({
-                indexx : ctx.session.feedback,
-                first_name: ctx.from?.first_name ,
-                text : ctx.message.text,
-                typ : 'aud'
-            }).save() 
-            await ctx.reply("አስተያየትዎን ተቀብለናል እናመሰግናለን ")
-            */
     }
 
 export  async function adminConvo(conversation: MyConversation, ctx: MyContext) {
@@ -247,4 +223,4 @@ export  async function adminConvo(conversation: MyConversation, ctx: MyContext) 
           if (tempmessage && tempusId ){
             await ctx.api.sendMessage(tempusId , tempmessage)
           }
-      }
+}

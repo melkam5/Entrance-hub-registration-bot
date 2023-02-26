@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/melkam5/Entrance-hub-registration#readme",
   "devDependencies": {
+    "@types/express": "^4.17.17",
     "@types/node": "^18.14.1",
     "prisma": "^4.10.1",
     "ts-node": "^10.9.1",
