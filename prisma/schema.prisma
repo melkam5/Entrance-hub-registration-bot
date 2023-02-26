@@ -27,12 +27,11 @@ model User {
 }
 
 model Refferal {
-  id        String  @id @default(uuid())
-  invitor   User    @relation("userinvited", fields: [invitorId], references: [tg_id], onDelete: Cascade)
+  id        String @id @default(uuid())
+  invitor   User   @relation("userinvited", fields: [invitorId], references: [tg_id], onDelete: Cascade)
   invitorId Int
-  invited   User    @relation("inviteduser", fields: [invitedId], references: [tg_id], onDelete: Cascade)
-  invitedId Int     @unique
-  isPayed   Boolean @default(false)
+  invited   User   @relation("inviteduser", fields: [invitedId], references: [tg_id], onDelete: Cascade)
+  invitedId Int    @unique
 }
 
 model RegisteredStudent {
@@ -52,5 +51,9 @@ model waitingListStudent {
 //  invited user    @relation("invitedlist ", fields: [invitedId], references: [tg_id])
 //  payed   Boolean @default(false)
 model feedback {
-  id String @id @default(uuid())
+  id           String  @id @default(uuid())
+  index        Int     @unique @default(autoincrement())
+  first_name   String?
+  message_type String?
+  content      String?
 }

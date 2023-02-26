@@ -195,14 +195,19 @@ export async function feedbackConvo (conversation : MyConversation, ctx : MyCont
         }
         } while (!ctx.message?.text );
 
-        if(ctx.message?.text)
-            await new FeedbackData({
-                indexx : ctx.session.feedback,
-                first_name: ctx.from?.first_name ,
-                text : ctx.message.text,
-                typ : 'txt'
-            }).save() 
+        if(ctx.message?.text) {
+            if (await prisma.feedback.create({
+                data : {
+                    first_name : ctx.from?.first_name ,
+                    message_type : 'txt' ,
+                    content : ctx.message.text 
+                }
+            })
+            )
             await ctx.reply("አስተያየትዎን ተቀብለናል እናመሰግናለን ")
+        }
+           
+            
         /*if(ctx.message?.audio){
             await new FeedbackData({
                 indexx : ctx.session.feedback,

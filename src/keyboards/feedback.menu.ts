@@ -1,6 +1,8 @@
 import { Menu } from "@grammyjs/menu";
-import { FeedbackData } from "../dbModel";
 import { MyContext } from "../types/context.type";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const feedbackmenu = new Menu<MyContext>("feedback", { onMenuOutdated: "Updated, try now."})
     .text("◀️", async (ctx) => {
@@ -32,12 +34,14 @@ const feedbackmenu = new Menu<MyContext>("feedback", { onMenuOutdated: "Updated,
 
 
 async function updateFeedback (ctx : MyContext) {
-        let temptextDb
-        temptextDb = (await FeedbackData.find({ indexx: ctx.session.feedbackState}))
-    
-        if (temptextDb){
-            await ctx.editMessageText(`<< ${temptextDb[0].text}
-    From : ${temptextDb[0].first_name}`)
-    }}        
+
+    let temptextDb = await prisma.feedback.findFirst({
+        where : {
+            index : ctx.session.feedbackState
+        }})
+    if (temptextDb){
+        await ctx.editMessageText(`<< ${temptextDb.content}
+From : ${temptextDb.first_name}`)
+}}        
 
 export default feedbackmenu ;
