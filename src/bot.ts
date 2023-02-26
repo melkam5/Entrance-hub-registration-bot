@@ -9,6 +9,7 @@ import { sessionMid } from "./middlewares/session.middleware";
 import { MyContext } from "./types/context.type";
 import handler from './handlers'
 import { nameConvo, schoolConvo, approvalConvo, feedbackConvo, cashOutConvo, adminConvo } from "./utiles/conversations";
+import { Socket } from "dgram";
 
 
 export const io = require("socket.io")(3000, {
@@ -16,6 +17,10 @@ export const io = require("socket.io")(3000, {
 	  origin: [process.env.ADMIN_FRONT_END_URL],
 	},
   })
+
+io.on("connection", (socketio: { id: any; }) => {
+	console.log(`connected to ${socketio.id}`);
+});
 
 
 export const bot = new Bot<MyContext>(process.env.BOT_TOKEN || '')

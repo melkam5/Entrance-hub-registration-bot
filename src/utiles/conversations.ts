@@ -94,12 +94,12 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                             }
                         }
                     }
-                }))
-                io.on("connection", (socketio: { id: any; }) => {
-                    console.log("''''");
-                });
-                  
-            await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
+                })){
+                    io.emit("update", "new-request") 
+                    await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
+                }
+                
+                
         }}
         
         else if (ctx.message?.document){
@@ -112,9 +112,10 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                             }
                         }
                     }
-                }))
-
-            await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
+                })){
+                    io.emit("update", "new-request") 
+                    await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
+                }
         }}
     }
 }
