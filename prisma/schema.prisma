@@ -21,8 +21,6 @@ model User {
   waiting         waitingListStudent? @relation("userwaitingToBeRegistered")
   isInvitedBy     Refferal?           @relation("inviteduser")
   invited         Refferal[]          @relation("userinvited")
-  payed           Int                 @default(0)
-  points          Int                 @default(0)
   credited        Int                 @default(0)
 }
 

@@ -33,8 +33,6 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
 			phone_number: '',
             stream: '',
 			school : '',
-			payed : 0 ,
-			points : 0 ,
             credited : 0
 		}
 

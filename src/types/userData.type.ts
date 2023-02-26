@@ -8,8 +8,6 @@ export interface UserDataInterface {
     phone_number: string | null;
     stream: string | null;
     school : string | null;
-    payed : number ;
-    points : number ;
     credited :number ;
 } 
 

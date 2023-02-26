@@ -49,7 +49,7 @@ Please Join our Channel with the button below to continue 😊.`,
             message_invite_page : (ctx : MyContext) => `
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 
-🎖  Your current  point is ${(ctx.userData.points*referalBonus.point_valueBirr)-ctx.userData.credited} Birr
+🎖  Your current  point is ${(ctx.refferalData.payed*referalBonus.point_valueBirr)-ctx.userData.credited} Birr
 👥  Invited people ${ctx.refferalData.invited} 
 🫂  Successfully joined people ${ctx.refferalData.payed}
 

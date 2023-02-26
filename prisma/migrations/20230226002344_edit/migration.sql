@@ -1,5 +1,0 @@
--- AlterTable
-ALTER TABLE `Refferal` ADD COLUMN `isPayed` BOOLEAN NOT NULL DEFAULT false;
-
--- AlterTable
-ALTER TABLE `User` MODIFY `payed` INTEGER NOT NULL DEFAULT 0;

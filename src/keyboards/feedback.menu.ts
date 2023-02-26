@@ -7,11 +7,12 @@ const prisma = new PrismaClient();
 const feedbackmenu = new Menu<MyContext>("feedback", { onMenuOutdated: "Updated, try now."})
     .text("◀️", async (ctx) => {
         if(ctx.session.feedbackState > 0){
-            ctx.session.feedbackState = ctx.session.feedbackState - 1
+            ctx.session.feedbackState = parseInt(ctx.update.callback_query.message?.reply_markup?.inline_keyboard[0][1].text ? ctx.update.callback_query.message?.reply_markup?.inline_keyboard[0][1].text : '0' ) - 1
             await updateFeedback (ctx);
         }
         else {
             ctx.session.feedbackState = 0
+            await updateFeedback (ctx);
         }
     })
     .text(
@@ -19,13 +20,13 @@ const feedbackmenu = new Menu<MyContext>("feedback", { onMenuOutdated: "Updated,
         (ctx) => {}, 
     )
     .text("▶️",async  (ctx) => {
-        if(ctx.session.feedbackState < ctx.session.feedback-1){
-            ctx.session.feedbackState = ctx.session.feedbackState + 1
+        const fs = parseInt(ctx.update.callback_query.message?.reply_markup?.inline_keyboard[0][1].text ? ctx.update.callback_query.message?.reply_markup?.inline_keyboard[0][1].text : '0' )
+        if(fs < ctx.session.feedback-1){
+            ctx.session.feedbackState = fs + 1
             await updateFeedback (ctx);
         }
         else {
-            ctx.session.feedbackState = ctx.session.feedbackState-1
-            await updateFeedback (ctx)
+            await ctx.answerCallbackQuery("end of feedbacks")
         }
     }).row()
     .text("Leave your feedback ", async (ctx) => {
@@ -34,7 +35,8 @@ const feedbackmenu = new Menu<MyContext>("feedback", { onMenuOutdated: "Updated,
 
 
 async function updateFeedback (ctx : MyContext) {
-
+    const fs = parseInt(ctx.update.callback_query?.message?.reply_markup?.inline_keyboard[0][1].text ? ctx.update.callback_query.message?.reply_markup?.inline_keyboard[0][1].text : '0' )
+    
     let temptextDb = await prisma.feedback.findFirst({
         where : {
             index : ctx.session.feedbackState
