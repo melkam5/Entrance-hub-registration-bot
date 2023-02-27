@@ -1,8 +1,8 @@
 import { Composer } from "grammy";
 import helpinlinekb from "../keyboards/help.inline.keyboard";
-import mainMenu from "../keyboards/mainmenu.custom.keyboard";
 import { MyContext } from "../types/context.type";
 import { loc } from "../config/locales";
+import { mainMenu, mainMenuamh } from "../keyboards/mainmenu.custom.keyboard";
 
 
 const composer = new Composer <MyContext> ();
@@ -22,7 +22,7 @@ composer.callbackQuery('whatneedoro', async(ctx)=>{
 
 composer.callbackQuery(['eng', 'amh'], async (ctx) => {
     if(ctx.userData.lang == 'eng' && ctx.match == 'amh') {
-        await ctx.reply('ወደ አማርኛ ቀይረዋል' , {reply_markup : mainMenu})
+        await ctx.reply('ወደ አማርኛ ቀይረዋል' , {reply_markup : mainMenuamh})
     }
     else if(ctx.userData.lang == 'amh' && ctx.match == 'eng') {
         await ctx.reply('Language changed to English' , {reply_markup : mainMenu})

@@ -39,7 +39,6 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
             
             let refererId = ctx.match.slice(3) ;
             let refererDb ;
-         //   ctx.userData.isInvitedBy =  +refererId
 
             refererDb = await prisma.user.findFirst({where : {tg_id :  parseInt(refererId.toString())}})
 
@@ -55,8 +54,8 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
         }
     }
 
-
-    ctx.userData.lang != null ? lan=ctx.userData.lang : lan='eng';
+    console.log(ctx.userData.lang);
+    ctx.userData.lang ? lan=ctx.userData.lang : lan='eng';
     await next();
     
 

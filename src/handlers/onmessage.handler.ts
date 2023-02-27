@@ -5,12 +5,12 @@ import { askLanguage} from "../utiles/functions";
 import feedbackmenu from "../keyboards/feedback.menu";
 import helpinlinekb from "../keyboards/help.inline.keyboard";
 import inviteMenu from "../keyboards/invite.menu";
-import mainMenu from "../keyboards/mainmenu.custom.keyboard";
 import registerMenu from "../keyboards/register.menu";
 import { lan } from "../middlewares/fechUserData.middleware";
 import { MyContext } from "../types/context.type";
 import { ObjectKey } from "../types/loc.type";
 import { PrismaClient } from "@prisma/client";
+import { mainMenu, mainMenuamh } from "../keyboards/mainmenu.custom.keyboard";
 
 const prisma = new PrismaClient();
 
@@ -22,8 +22,8 @@ composer.on("message:contact" , async (ctx)=>{
 	
 	if(!ctx.userData.phone_number){
 		ctx.userData.phone_number=ctx.message.contact.phone_number
-        await ctx.reply('Contact registerd ✔️ ', {
-            reply_markup: mainMenu,
+        await ctx.reply('Contact registerd ✔️ ', { 
+            reply_markup: ctx.userData.lang=='amh' ? mainMenuamh : mainMenu  ,
         });
         
 	}
@@ -78,7 +78,7 @@ From : ${feedbackMessage?.first_name} `, {reply_markup : feedbackmenu})
     }
 
     else {
-        await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : mainMenu})
+        await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : ctx.userData.lang=='amh' ? mainMenuamh : mainMenu})
     }
 })
 

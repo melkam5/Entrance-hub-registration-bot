@@ -2,10 +2,13 @@ import { Keyboard, InlineKeyboard } from "grammy"
 import { cbe, coop, telebirr, cbebirr, awash, nib, cooppay, nibbirr } from "../config/bankData"
 import { referalBonus } from "../config/botData"
 import { MyContext } from "../types/context.type"
+import { loc } from "../config/locales"
+import { lan } from "../middlewares/fechUserData.middleware"
+import { ObjectKey } from "../types/loc.type"
  
 
 const phoneKeyboard = new Keyboard()
-phoneKeyboard.requestContact("Share contact").resized()
+phoneKeyboard.requestContact(loc[lan as ObjectKey].custom_share_contact ).resized()
 
 
 export const approval = new InlineKeyboard()
@@ -27,7 +30,7 @@ export async function askLanguage (ctx: MyContext) {
 }
 
 export async function askPhoneNo(ctx : MyContext) {
-    await ctx.reply('Please share your contact _' , {
+    await ctx.reply(loc[lan as ObjectKey].message_ask_contact , {
         reply_markup : phoneKeyboard
     })
 }
@@ -56,6 +59,7 @@ export function getBankData(bname : string , ctx :MyContext ){
 ▫️ የባንክ ሂሳብ ቁጥር : ${bank.accNumber}
 ▫️ ስም : ${bank.accName}
 ▫️ የገንዘብ መጠን : ${referalBonus.tutor_price} ETB
+➖➖➖➖➖➖➖➖➖➖➖➖➖
 ➖➖➖➖➖➖➖➖➖➖➖➖➖ 
 ❇️ ክፍያውን ከፍለው ሲጨርሱ ተላልፏል የሚለውን ይጫኑ
        `
@@ -63,6 +67,7 @@ export function getBankData(bname : string , ctx :MyContext ){
 ▫️ Account Number : ${bank.accNumber}
 ▫️ Name : ${bank.accName}
 ▫️ Amount : ${referalBonus.tutor_price} ETB
+➖➖➖➖➖➖➖➖➖➖➖➖➖
 ➖➖➖➖➖➖➖➖➖➖➖➖➖ 
 ❇️ ክፍያውን ከፍለው ሲጨርሱ ተላልፏል የሚለውን ይጫኑ
        `

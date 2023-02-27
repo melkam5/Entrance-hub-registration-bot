@@ -13,7 +13,7 @@ model User {
   first_name      String?
   username        String?
   registered_name String?
-  lang            String?
+  lang            String              @default("")
   phone_number    String?
   stream          String?
   school          String?
