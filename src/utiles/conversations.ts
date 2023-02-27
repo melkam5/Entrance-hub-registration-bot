@@ -192,7 +192,10 @@ export async function feedbackConvo (conversation : MyConversation, ctx : MyCont
                 }
             })
             )
-            await ctx.reply("አስተያየትዎን ተቀብለናል እናመሰግናለን ")
+            if(ctx.userData.lang == "eng")
+                await ctx.reply("Thank you for your helpfull feedback");
+            else if (ctx.userData.lang == "amh")
+                await ctx.reply("አስተያየትዎን ተቀብለናል እናመሰግናለን ")
         }
     }
 

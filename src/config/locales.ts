@@ -7,9 +7,35 @@ export const loc  = {
             menu_language : '🌐 Language',
             menu_invite : '🧧 Invite',
             menu_contact : '📥 Contact us',
-            menu_help : '〽️ Help',
+            menu_help : '❓ Help',
+            menu_feedback : "🖌 FeedBack",
             menu_social : 'Social Science',
             menu_natural : 'Natural Science',
+            menu_leave_feedback : 'Leave your feedback',
+
+            menu_get_post : "▫️ Get a post to forward ",
+            menu_cash_out : "💰 Cash out",
+            menu_forward_this : "⁉️ Forward the above post",
+            menu_back : "⬅️ Back ",
+            menu_clear_data : "⏺ Clear data" ,
+
+            notify_insufficient : "Insufficient balance",
+
+
+
+
+            bmenu_social : "▫️ Social Science",
+            bmenu_natural : "▫️ Natural Science",
+            bmenu_cbe: "▫️ Commercial Bank Of Ethiopia",
+            bmenu_coop:"▫️ Cooperative Bank Of Oromia" ,
+            bmenu_telebirr: "▫️ TeleBirr",
+            bmenu_cbebirr : "▫️ CBE Birr",
+            bmenu_nibbirr :"▫️ Nib E-Birr" ,
+            bmenu_awash: "▫️ Awash Bank",
+            bmenu_nib: "▫️ Nib Bank", 
+            bmenu_cooppay :"▫️ Coop pay" ,
+            
+
 
             message_ask_name : 'Tell us your full name _',
             meassge_ask_school : "what is your school's name ?",
@@ -39,6 +65,7 @@ export const loc  = {
             message_failed_request : 'Your request is declined ',
             message_notify_registerd :'You are already registerd .',
             message_wait_forReview :'Please wait untile we proced your request , pending',
+
 
 
             notify_langSelected : 'English is selected',

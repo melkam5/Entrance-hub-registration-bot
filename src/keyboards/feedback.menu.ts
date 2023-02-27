@@ -1,6 +1,9 @@
 import { Menu } from "@grammyjs/menu";
 import { MyContext } from "../types/context.type";
 import { PrismaClient } from "@prisma/client";
+import { loc } from "../config/locales";
+import { ObjectKey } from "../types/loc.type";
+import { lan } from "../middlewares/fechUserData.middleware";
 
 const prisma = new PrismaClient();
 
@@ -29,7 +32,7 @@ const feedbackmenu = new Menu<MyContext>("feedback", { onMenuOutdated: "Updated,
             await ctx.answerCallbackQuery("end of feedbacks")
         }
     }).row()
-    .text("Leave your feedback ", async (ctx) => {
+    .text( loc[lan as ObjectKey].menu_leave_feedback, async (ctx) => {
             await ctx.conversation.enter("feedbackConvo");
         }).row();
 

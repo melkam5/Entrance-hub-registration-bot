@@ -53,29 +53,8 @@ composer.on("message:text" , async (ctx)=>{
     }
     else if(ctx.msg.text == '📥 Contact us' || ctx.msg.text == '📥 አግኙን' || ctx.msg.text == '/contact' ) {
             await ctx.api.sendPhoto(ctx.chat.id, photoContact, { 
-                caption: `📥 Contact us
- ➖➖➖➖➖➖➖➖➖➖➖➖➖
-
- ✍️ Inbox  : @EntranceHub_Admin
- 💌 E-Mail : entrancehubtutorials@gmail.com
- 📞 Call   : 0917318110
- ☎️ Call   : 0948398047
- 🤖 Developer : @melkam_5
- `})
-     
-/*
- `📥 ያግኙን
- ➖➖➖➖➖➖➖➖➖➖➖➖➖
-        
- ✍️ ለድጋፍ   : @EntranceHub_Admin
- 💌 ኢ-ሜይል : entrancehubtutorials@gmail.com
- 📞 ስልክ    : 0917318110
- ☎️ ስልክ    : 0948398047
- 🤖 አበልጻጊ  : @melkam_5
- ` 
-*/
-            }
-
+                caption: loc[lan as ObjectKey].message_contact})
+   }
     else if(ctx.msg.text == '❓ Help' || ctx.msg.text == '❓ እርዳታ'|| ctx.msg.text == '/help' ) {
         await ctx.reply( loc.eng.message_helpmenu_one, {reply_markup : helpinlinekb});
     }
@@ -100,7 +79,6 @@ From : ${feedbackMessage?.first_name} `, {reply_markup : feedbackmenu})
 
     else {
         await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : mainMenu})
-        /*'እባክዎ ከአማራጮቹ አንዱን ይምረጡ'*/
     }
 })
 

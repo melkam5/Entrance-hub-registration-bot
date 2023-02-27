@@ -90,4 +90,4 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
     }
 }
 
-export let lan = 'eng'
+export let lan = 'amh'

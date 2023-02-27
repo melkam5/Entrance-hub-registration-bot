@@ -6,21 +6,21 @@ import { MyContext } from "../types/context.type";
 import { ObjectKey } from "../types/loc.type";
 
 const inviteMenu = new Menu<MyContext>("invite-menu" , { onMenuOutdated: false })
-    .submenu("▫️ Get a post to forward " , "how-it-works" ,async (ctx) => {
+    .submenu( loc[lan as ObjectKey].menu_get_post  , "how-it-works" ,async (ctx) => {
         await ctx.editMessageCaption({caption : loc[lan as ObjectKey].notify_langSelected})
         }).row()
-    .text("💰 Cash out", async (ctx)=>{
+    .text(loc[lan as ObjectKey].menu_cash_out, async (ctx)=>{
         if(referalBonus.minwith_value < ((ctx.refferalData.payed*referalBonus.point_valueBirr)*ctx.userData.credited )){
             await ctx.conversation.enter("cashOutConvo");
         }
         else {
-            await ctx.answerCallbackQuery("Insufficient balance")
+            await ctx.answerCallbackQuery(loc[lan as ObjectKey].notify_insufficient)
     }
 });
 
 const subOfInviteMenu = new Menu<MyContext>("how-it-works")
-    .text("⁉️ Forward the above post", (ctx)=> {}).row()
-    .back("⬅️ Back ",async (ctx ) => {
+    .text(loc[lan as ObjectKey].menu_forward_this, (ctx)=> {}).row()
+    .back(loc[lan as ObjectKey].menu_back,async (ctx ) => {
         await ctx.editMessageCaption({caption : loc[lan as ObjectKey].message_invite_page(ctx) })}
     );
 
