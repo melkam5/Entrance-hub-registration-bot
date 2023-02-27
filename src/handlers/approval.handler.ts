@@ -6,14 +6,13 @@ const prisma = new PrismaClient();
 
 export const approvalHandler = async (req: any, res: any) => {
 
-    const {tg_id , action, classOf, stream } = req.body;
+    const {tg_id, action, className, class_tg_id } = req.body;
     try {    
         if (await prisma.waitingListStudent.findFirst({where : {stusent_tg_Id : Number(tg_id)}})){  
 
             if ( action == "approve") {
 
-                const privateChannel = private_channel_na
-                const ivtlink = await bot.api.createChatInviteLink(privateChannel,{member_limit: 1});
+                const ivtlink = await bot.api.createChatInviteLink(Number(class_tg_id),{member_limit: 1});
                 if( await bot.api.sendMessage(tg_id, `You are approved , use the following link to join . ! Beware this is a one time link  
   ---------------------
 ክፍያዎት በትክክል ተፈጽሟል , ቲቶሪያል የሚሰጥበትን ቻናል ለመቀላቅል ከታች ያለዉን ሊንክ ይጠቀሙ . ! ማስጠንቀቂያ ይህ ሊንክ ለእርስዎ ብቻ ነው የሚያገለግለዉ ለሌላ ሰው አያጋሩ  ,
@@ -21,7 +20,7 @@ export const approvalHandler = async (req: any, res: any) => {
                 {
                     await prisma.registeredStudent.create({
                         data : {
-                            classof : classOf,
+                            classof : className,
                             student : {
                                 connect : {
                                     tg_id : Number(tg_id)
@@ -43,7 +42,7 @@ export const approvalHandler = async (req: any, res: any) => {
         await prisma.waitingListStudent.delete({where:{stusent_tg_Id : Number(tg_id)}})
         res.status(200).json({message: "success"});
         } else {
-            res.status(401).json({message: "invalid user"});
+            res.status(400).json({message: "invalid request"});
         }
     } catch (e) {
         res.status(500).json({ message: "Server Error" });

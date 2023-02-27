@@ -60,7 +60,7 @@ composer.on("message:text" , async (ctx)=>{
         await ctx.conversation.exit();
         await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : ctx.userData.lang=='amh' ? mainMenuamh : mainMenu})
     }
-    else if(ctx.msg.text == '❓ Help' || ctx.msg.text == '❓ እርዳታ'|| ctx.msg.text == '/help' ) {
+    else if(ctx.msg.text == '❓ Help' || ctx.msg.text == '❓እርዳታ'|| ctx.msg.text == '/help' ) {
         await ctx.reply( loc.eng.message_helpmenu_one, {reply_markup : helpinlinekb});
     }
     else if (ctx.msg.text == '🖌 አስተያየት' || ctx.msg.text == '🖌 FeedBack'|| ctx.msg.text == '/help'){

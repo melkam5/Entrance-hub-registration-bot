@@ -10,7 +10,7 @@ const inviteMenu = new Menu<MyContext>("invite-menu" , { onMenuOutdated: false }
         await ctx.editMessageCaption({caption : loc[lan as ObjectKey].notify_langSelected})
         }).row()
     .text((ctx) => loc[ctx.userData.lang as ObjectKey].menu_cash_out, async (ctx)=>{
-        if(referalBonus.minwith_value < ((ctx.refferalData.payed*referalBonus.point_valueBirr)*ctx.userData.credited )){
+        if(referalBonus.minwith_value < ((ctx.refferalData.payed*referalBonus.point_valueBirr)-ctx.userData.credited )){
             await ctx.conversation.enter("cashOutConvo");
         }
         else {

@@ -54,7 +54,7 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
         }
     }
 
-    console.log(ctx.userData.lang);
+
     ctx.userData.lang ? lan=ctx.userData.lang : lan='eng';
     await next();
     

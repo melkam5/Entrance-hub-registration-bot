@@ -9,7 +9,6 @@ import { sessionMid } from "./middlewares/session.middleware";
 import { MyContext } from "./types/context.type";
 import handler from './handlers'
 import { nameConvo, schoolConvo, approvalConvo, feedbackConvo, cashOutConvo, adminConvo } from "./utiles/conversations";
-import { Socket } from "dgram";
 
 
 export const io = require("socket.io")(3000, {

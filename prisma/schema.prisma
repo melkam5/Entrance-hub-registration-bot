@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id              String              @id @unique @default(uuid())
-  tg_id           Int                 @unique
+  tg_id           String              @unique
   first_name      String?
   username        String?
   registered_name String?
@@ -27,15 +27,15 @@ model User {
 model Refferal {
   id        String @id @default(uuid())
   invitor   User   @relation("userinvited", fields: [invitorId], references: [tg_id], onDelete: Cascade)
-  invitorId Int
+  invitorId String
   invited   User   @relation("inviteduser", fields: [invitedId], references: [tg_id], onDelete: Cascade)
-  invitedId Int    @unique
+  invitedId String @unique
 }
 
 model RegisteredStudent {
   id             String   @id @default(uuid())
   student        User     @relation("userRegistered", fields: [stusent_tg_Id], references: [tg_id], onDelete: Cascade)
-  stusent_tg_Id  Int      @unique
+  stusent_tg_Id  String   @unique
   registeredDate DateTime @updatedAt
   classof        String
 }
@@ -43,7 +43,8 @@ model RegisteredStudent {
 model waitingListStudent {
   id            String @id @default(uuid())
   student       User   @relation("userwaitingToBeRegistered", fields: [stusent_tg_Id], references: [tg_id], onDelete: Cascade)
-  stusent_tg_Id Int    @unique
+  stusent_tg_Id String @unique
+  bank_name     String
 }
 
 //  invited user    @relation("invitedlist ", fields: [invitedId], references: [tg_id])
@@ -53,5 +54,12 @@ model feedback {
   index        Int     @unique @default(autoincrement())
   first_name   String?
   message_type String?
-  content      String?
+  content      String? @db.LongText
+}
+
+model tutorialClass {
+  id          String @id @default(uuid())
+  name        String
+  stream      String @default("na")
+  class_tg_id String
 }

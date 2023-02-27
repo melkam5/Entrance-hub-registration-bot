@@ -78,8 +78,8 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
         await ctx.reply("የከፈሉበትን ማረጋገጫ ስክሪንሹት(Screenshoot) ወይም የደረስኝ ፎቶ ይላኩ)!", {reply_markup :  cancelKeyboard});
         ctx = await conversation.wait();
         
-        if (ctx.message?.text === "/cancel") {
-            await ctx.reply("Cancelled, leaving!");
+        if (ctx.message?.text === "/cancel"|| ctx.message?.text === '❌ Cancel') {
+            await ctx.reply("Cancelled, leaving!", {reply_markup : ctx.userData.lang=='amh' ?  mainMenuamh : mainMenu});
             return;
         }
     } 
@@ -94,14 +94,13 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                             connect : {
                                 tg_id : ctx.chat?.id
                             }
-                        }
+                        },
+                        bank_name : ctx.session.bank
                     }
                 })){
                     io.emit("update", "new-request") 
                     await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ", {reply_markup : ctx.userData.lang == 'amh' ? mainMenuamh : mainMenu }) 
-                }
-                
-                
+                }                
         }}
         
         else if (ctx.message?.document){
@@ -112,7 +111,8 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                             connect : {
                                 tg_id : ctx.chat?.id
                             }
-                        }
+                        },
+                        bank_name : ctx.session.bank
                     }
                 })){
                     io.emit("update", "new-request") 
@@ -128,8 +128,8 @@ export async function cashOutConvo(conversation : MyConversation, ctx : MyContex
         await ctx.reply("ምን ያክል ብር ነው ማውጣት የፈለጉት ?");
         ctx = await conversation.wait();
         
-        if (ctx.message?.text === "/cancel") {
-            await ctx.reply("Cancelled, leaving!");
+        if (ctx.message?.text === "/cancel" || ctx.message?.text === '❌ Cancel') {
+            await ctx.reply("Cancelled, leaving!", {reply_markup : ctx.userData.lang=='amh' ?  mainMenuamh : mainMenu});
             return;
         }
     } 
@@ -140,8 +140,8 @@ export async function cashOutConvo(conversation : MyConversation, ctx : MyContex
         await ctx.reply("የኢትዮጵያ ንግድ ባንክ ሂሳብ ቁጥርዎን ይላኩልን?");
         ctx = await conversation.wait();
         
-        if (ctx.message?.text === "/cancel") {
-            await ctx.reply("Cancelled, leaving!");
+        if (ctx.message?.text === "/cancel" || ctx.message?.text === '❌ Cancel') {
+            await ctx.reply("Cancelled, leaving!", {reply_markup : ctx.userData.lang=='amh' ?  mainMenuamh : mainMenu});
             return;
         }
     } 
@@ -175,15 +175,14 @@ export async function feedbackConvo (conversation : MyConversation, ctx : MyCont
         if(ctx.userData.lang == "eng")
             await ctx.reply("write down your feedback" , {reply_markup :  cancelKeyboard});
         else if (ctx.userData.lang == "amh")
-            await ctx.reply("አስተያየትዎን ከስር ጻፉ ");
             await ctx.reply("write down your feedback" , {reply_markup :  cancelKeyboard})
         ctx = await conversation.wait();
 
-        if (ctx.message?.text === "/cancel") {
-            await ctx.reply("Cancelled, leaving!");
+        if (ctx.message?.text === "/cancel" || ctx.message?.text === '❌ Cancel') {
+            await ctx.reply("Cancelled, leaving!", {reply_markup : ctx.userData.lang=='amh' ?  mainMenuamh : mainMenu});
             return;
         }
-        } while (!ctx.message?.text );
+        } while (!ctx.message?.text || ctx.message?.text == '❌ Cancel' );
 
         if(ctx.message?.text) {
             if (await prisma.feedback.create({
@@ -206,8 +205,8 @@ export  async function adminConvo(conversation: MyConversation, ctx: MyContext) 
             await ctx.reply("Send me a userid ! or /cancel");
             ctx = await conversation.wait();
           
-            if (ctx.message?.text === "/cancel") {
-              await ctx.reply("Cancelled, leaving!");
+            if (ctx.message?.text === "/cancel" || ctx.message?.text === '❌ Cancel') {
+                await ctx.reply("Cancelled, leaving!", {reply_markup : ctx.userData.lang=='amh' ?  mainMenuamh : mainMenu});
               return;
             }
           } while (!ctx.message?.text);
