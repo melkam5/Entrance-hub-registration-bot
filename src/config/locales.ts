@@ -226,7 +226,7 @@ Please Join our Channel with the button below to continue 😊.`,
  👥  የጋበዙት ሰው ብዛት ${ctx.refferalData.invited} 
  🫂  ከጋበዙቸው ሰወች ውስጥ ክፍያ የፈጸሙት ብዛት ${ctx.refferalData.payed}
 
- 💰 ከዚ በፊት ያወጡት ብር   ${ctx.userData.credited} ብር
+ 💰 ከዚ በፊት ያወጡት የገንዘብ መጠን ${ctx.userData.credited} ብር
 
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
  💥 በአንድ ክፍያዉን ፈጽሞ በገባ ሰዉ የሚያገኙት ነጥብ ${referalBonus.point_value}% ነው
@@ -234,7 +234,7 @@ Please Join our Channel with the button below to continue 😊.`,
     ㅤ
     
  👇 ለመጋበዝ ለወዳጅዎ ይህንን ሊንክ ያጋሩ :
-https://t.me/${bot_user_name}?start=ehr${ctx.userData.tg_id}
+ https://t.me/${bot_user_name}?start=ehr${ctx.userData.tg_id}
                   ` ,
             message_contact : `📥 ያግኙን
 ➖➖➖➖➖➖➖➖➖➖➖➖➖

@@ -55,6 +55,11 @@ composer.on("message:text" , async (ctx)=>{
             await ctx.api.sendPhoto(ctx.chat.id, photoContact, { 
                 caption: loc[lan as ObjectKey].message_contact})
    }
+
+    else if(ctx.msg.text == "❌ Cancel" ) {
+        await ctx.conversation.exit();
+        await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : ctx.userData.lang=='amh' ? mainMenuamh : mainMenu})
+    }
     else if(ctx.msg.text == '❓ Help' || ctx.msg.text == '❓ እርዳታ'|| ctx.msg.text == '/help' ) {
         await ctx.reply( loc.eng.message_helpmenu_one, {reply_markup : helpinlinekb});
     }

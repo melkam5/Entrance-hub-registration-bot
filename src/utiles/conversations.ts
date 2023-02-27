@@ -3,6 +3,8 @@ import { admin_one } from "../config/botData";
 import { MyConversation, MyContext } from "../types/context.type";
 import { askPhoneNo } from "./functions";
 import { io } from "../bot";
+import { cancelKeyboard } from "../keyboards/cancel.custom.keyboard";
+import { mainMenuamh, mainMenu } from "../keyboards/mainmenu.custom.keyboard";
 
 
 const prisma = new PrismaClient();
@@ -73,7 +75,7 @@ export async function schoolConvo(conversation :MyConversation, ctx : MyContext)
 export async function approvalConvo(conversation : MyConversation, ctx : MyContext) {
 
     do {
-        await ctx.reply("የከፈሉበትን ማረጋገጫ ስክሪንሹት(Screenshoot) ወይም የደረስኝ ፎቶ ይላኩ)!");
+        await ctx.reply("የከፈሉበትን ማረጋገጫ ስክሪንሹት(Screenshoot) ወይም የደረስኝ ፎቶ ይላኩ)!", {reply_markup :  cancelKeyboard});
         ctx = await conversation.wait();
         
         if (ctx.message?.text === "/cancel") {
@@ -96,7 +98,7 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                     }
                 })){
                     io.emit("update", "new-request") 
-                    await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
+                    await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ", {reply_markup : ctx.userData.lang == 'amh' ? mainMenuamh : mainMenu }) 
                 }
                 
                 
@@ -171,10 +173,10 @@ export async function cashOutConvo(conversation : MyConversation, ctx : MyContex
 export async function feedbackConvo (conversation : MyConversation, ctx : MyContext ){
     do {
         if(ctx.userData.lang == "eng")
-            await ctx.reply("write down your feedback");
+            await ctx.reply("write down your feedback" , {reply_markup :  cancelKeyboard});
         else if (ctx.userData.lang == "amh")
             await ctx.reply("አስተያየትዎን ከስር ጻፉ ");
-        
+            await ctx.reply("write down your feedback" , {reply_markup :  cancelKeyboard})
         ctx = await conversation.wait();
 
         if (ctx.message?.text === "/cancel") {
@@ -193,9 +195,9 @@ export async function feedbackConvo (conversation : MyConversation, ctx : MyCont
             })
             )
             if(ctx.userData.lang == "eng")
-                await ctx.reply("Thank you for your helpfull feedback");
+                await ctx.reply("Thank you for your helpfull feedback", {reply_markup : mainMenu});
             else if (ctx.userData.lang == "amh")
-                await ctx.reply("አስተያየትዎን ተቀብለናል እናመሰግናለን ")
+                await ctx.reply("አስተያየትዎን ተቀብለናል እናመሰግናለን ", {reply_markup : mainMenuamh})
         }
     }
 
