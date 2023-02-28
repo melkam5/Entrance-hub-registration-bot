@@ -8,7 +8,7 @@ export const approvalHandler = async (req: any, res: any) => {
 
     const {tg_id, action, className, class_tg_id } = req.body;
     try {    
-        if (await prisma.waitingListStudent.findFirst({where : {stusent_tg_Id : Number(tg_id)}})){  
+        if (await prisma.waitingListStudent.findFirst({where : {stusent_tg_Id : String(tg_id)}})){  
 
             if ( action == "approve") {
 
@@ -23,7 +23,7 @@ export const approvalHandler = async (req: any, res: any) => {
                             classof : className,
                             student : {
                                 connect : {
-                                    tg_id : Number(tg_id)
+                                    tg_id : String(tg_id)
                                 }
                             }
                         }
@@ -39,7 +39,7 @@ export const approvalHandler = async (req: any, res: any) => {
                 console.log(e)
             }
         }
-        await prisma.waitingListStudent.delete({where:{stusent_tg_Id : Number(tg_id)}})
+        await prisma.waitingListStudent.delete({where:{stusent_tg_Id : String(tg_id)}})
         res.status(200).json({message: "success"});
         } else {
             res.status(400).json({message: "invalid request"});
