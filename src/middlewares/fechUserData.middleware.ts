@@ -10,10 +10,10 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
     if (ctx.chat && ctx.chat.type != 'group' && ctx.chat.type != 'supergroup' && ctx.chat.type != 'channel' )  {
         ctx.session.feedback = await prisma.feedback.count();
     
-    userDatatemp = await prisma.user.findFirst({where : {tg_id : ctx.chat.id }})
+    userDatatemp = await prisma.user.findFirst({where : {tg_id : String(ctx.chat.id) }})
     ctx.refferalData = {
-        invited :await prisma.refferal.count({where : { invitorId : ctx.chat?.id}}) ,
-        payed :await prisma.refferal.count({where : { invitorId : ctx.chat?.id, NOT : {invited : {registered : null }} }})
+        invited :await prisma.refferal.count({where : { invitorId : String(ctx.chat?.id)}}) ,
+        payed :await prisma.refferal.count({where : { invitorId : String(ctx.chat?.id), NOT : {invited : {registered : null }} }})
     
     } 
 
@@ -24,7 +24,7 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
     else {
         ctx.userData = {
             
-			tg_id : ctx.chat.id ,
+			tg_id : String(ctx.chat.id) ,
 			first_name: ctx.chat.first_name,
     		username: ctx.chat.username || '',
             registered_name: '',
@@ -40,14 +40,14 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
             let refererId = ctx.match.slice(3) ;
             let refererDb ;
 
-            refererDb = await prisma.user.findFirst({where : {tg_id :  parseInt(refererId.toString())}})
+            refererDb = await prisma.user.findFirst({where : {tg_id :  String(refererId.toString())}})
 
             if(refererDb){
               
                 await prisma.refferal.create({
                     data: {
                       invitorId : refererDb?.tg_id ,
-                      invitedId : ctx.chat.id 
+                      invitedId : String(ctx.chat.id) 
                     },
                   })
             }
@@ -69,10 +69,10 @@ export const fetchUserData = async ( ctx: MyContext, next: NextFunction): Promis
         ctx.userData.stream = ctx.session.stream
     }
 
-    if( await prisma.user.findFirst({where : {tg_id :ctx.chat.id  }})){
+    if( await prisma.user.findFirst({where : {tg_id :String(ctx.chat.id) }})){
         await prisma.user.update({
             where : {
-                tg_id : ctx.chat.id 
+                tg_id : String(ctx.chat.id) 
             },
             data : 
                 ctx.userData

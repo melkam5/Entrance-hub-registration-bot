@@ -1,6 +1,6 @@
 export interface UserDataInterface {
     id? : string;
-    tg_id :number;
+    tg_id : string;
     first_name: string | null;
     username: string | null;
     registered_name: string | null;

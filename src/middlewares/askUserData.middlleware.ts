@@ -9,7 +9,7 @@ import { lan } from "./fechUserData.middleware";
 
 
 export const askUserData = async (ctx: MyContext, next: NextFunction) => {
-    if ( ctx.message?.text?.startsWith('/start ehr') ||ctx.update.callback_query || ctx.message?.contact || ctx.userData.tg_id == 1784535518 || (ctx.userData.lang && ctx.userData.phone_number && ctx.chat?.id && ((await bot.api.getChatMember(public_channel|| '', ctx.chat?.id)).status =='member') ) )      
+    if ( ctx.message?.text?.startsWith('/start ehr') ||ctx.update.callback_query || ctx.message?.contact || ctx.userData.tg_id == '1784535518' || (ctx.userData.lang && ctx.userData.phone_number && ctx.chat?.id && ((await bot.api.getChatMember(public_channel|| '', ctx.chat?.id)).status =='member') ) )      
         await next();
         
     if(!ctx.userData.lang) 

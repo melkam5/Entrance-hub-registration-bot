@@ -50,34 +50,34 @@ export const loc  = {
             message_notify_registerd :'You are already registerd .',
             message_wait_forReview :'Please wait untile we proced your request , pending',
             notify_langSelected : 'English is selected',
-            message_select_option : 'Please select an option',
+            message_select_option : '<i> Please select an option </i>',
             message_invite_join:(ctx : MyContext )=>`Hey ${ctx.userData.first_name} ,
 Please Join our Channel with the button below to continue 😊.`,
             message_invite_page : (ctx : MyContext) => `
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 
- 🎖  Your current  point is ${(ctx.refferalData.payed*referalBonus.point_valueBirr)-ctx.userData.credited} Birr
- 👥  Invited people ${ctx.refferalData.invited} 
- 🫂  Successfully joined people ${ctx.refferalData.payed}
+ 🎖  Your current Balance : ${(ctx.refferalData.payed*referalBonus.point_valueBirr)-ctx.userData.credited} <b>Birr</b>
+ 👥  You have invited : ${ctx.refferalData.invited} <b>People</b> 
+ 🫂  Successfully joined  : ${ctx.refferalData.payed} <b>People</b>
 
- 💰 Cashed out Amount:  ${ctx.userData.credited} Birr
+ 💰 Cashed out Amount : ${ctx.userData.credited} <b>Birr</b>
 
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
- 💥 The percent per successfully joined people is ${referalBonus.point_value}% .
- 💰 The minimum amount you can withdraw is ${referalBonus.minwith_value} Birr .
+ <pre>💥 The percent per successfully joined people is ${referalBonus.point_value}%. </pre>
+ <pre>💰 The minimum amount you can withdraw is ${referalBonus.minwith_value} Birr. </pre>
     ㅤ
     
- 👇 Share this link to invite :
-https://t.me/${bot_user_name}?start=ehr${ctx.userData.tg_id}
+ 👇 <b>Share this link to invite : </b>
+  https://t.me/${bot_user_name}?start=ehr${ctx.userData.tg_id}
                   ` ,
-            message_contact : `📥 Contact us
+            message_contact : `  <b>📥 Contact us</b>
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
            
- ✍️ Inbox  : @EntranceHub_Admin
- 💌 E-Mail : entrancehubtutorials@gmail.com
- 📞 Call   : 0917318110
- ☎️ Call   : 0948398047
- 🤖 Developer : @melkam_5
+ ✍️ <b>Inbox</b>  : @EntranceHub_Admin
+ 💌 <b>E-Mail</b> : entrancehubtutorials@gmail.com
+ 📞 <b>Call</b>   : 0917318110
+ ☎️ <b>Call</b>   : 0948398047
+ 🤖 <b>Developer</b> : @melkam_5
             `,
 
             message_select_grade : `➖➖➖➖➖➖➖➖➖➖➖➖➖➖
@@ -216,34 +216,34 @@ Baraa barnotaa garii akkaa isiinif ta'uuf asuman hawwii keenya ibsinaa    🔆�
             message_notify_registerd :'እርስዎ ተመዝግበዉ ነው ያሉት ',
             message_wait_forReview :'ጥያቄዎትን በማየት ላይ ነን ፣ በትእግስት ይጠብቁን',
             notify_langSelected : 'አማርኛን መርጠዋል',
-            message_select_option : 'እባክዎ ከአማራጮቹ አንዱን ይምረጡ',
+            message_select_option : ' <i> እባክዎ ከአማራጮቹ አንዱን ይምረጡ </i>',
             message_invite_join:(ctx : MyContext )=>`Hey ${ctx.userData.first_name} ,
 Please Join our Channel with the button below to continue 😊.`,
             message_invite_page : (ctx : MyContext) => `
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
 
- 🎖  አሁን ያለዎት ${(ctx.refferalData.payed*referalBonus.point_valueBirr)-ctx.userData.credited} ብር
- 👥  የጋበዙት ሰው ብዛት ${ctx.refferalData.invited} 
- 🫂  ከጋበዙቸው ሰወች ውስጥ ክፍያ የፈጸሙት ብዛት ${ctx.refferalData.payed}
+ 🎖  አሁን ያለዎት ${(ctx.refferalData.payed*referalBonus.point_valueBirr)-ctx.userData.credited} <b>ብር</b>
+ 👥  የጋበዙት ሰው ብዛት : ${ctx.refferalData.invited} <b>ሰዎች</b>
+ 🫂  ከጋበዙቸው ሰዎች ውስጥ ክፍያ የፈጸሙት ብዛት : ${ctx.refferalData.payed} <b>ሰዎች</b>
 
- 💰 ከዚ በፊት ያወጡት የገንዘብ መጠን ${ctx.userData.credited} ብር
+ 💰 ከዚ በፊት ያወጡት የገንዘብ መጠን : ${ctx.userData.credited} ብር
 
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
- 💥 በአንድ ክፍያዉን ፈጽሞ በገባ ሰዉ የሚያገኙት ነጥብ ${referalBonus.point_value}% ነው
- 💰 ዝቅተኛ ማውጣት የሚችሉት የገንዘብ መጠን ${referalBonus.minwith_value} ብር
+ <pre>💥 በአንድ ክፍያዉን ፈጽሞ በገባ ሰዉ የሚያገኙት ${referalBonus.point_value}% ነው </pre>
+ <pre>💰 ዝቅተኛ ማውጣት የሚችሉት የገንዘብ መጠን ${referalBonus.minwith_value} ብር </pre>
     ㅤ
     
- 👇 ለመጋበዝ ለወዳጅዎ ይህንን ሊንክ ያጋሩ :
- https://t.me/${bot_user_name}?start=ehr${ctx.userData.tg_id}
+ 👇 <b>ለመጋበዝ ለወዳጅዎ ይህንን ሊንክ ያጋሩ :</b>
+  https://t.me/${bot_user_name}?start=ehr${ctx.userData.tg_id}
                   ` ,
-            message_contact : `📥 ያግኙን
+            message_contact : `  <b> 📥 ያግኙን </b>
 ➖➖➖➖➖➖➖➖➖➖➖➖➖
            
-  ✍️ ለድጋፍ   : @EntranceHub_Admin
-  💌 ኢ-ሜይል : entrancehubtutorials@gmail.com
-  📞 ስልክ    : 0917318110
-  ☎️ ስልክ    : 0948398047
-  🤖 አበልጻጊ  : @melkam_5
+  ✍️ <b>ለድጋፍ</b>   : @EntranceHub_Admin
+  💌 <b>ኢ-ሜይል</b> : entrancehubtutorials@gmail.com
+  📞 <b>ስልክ</b>    : 0917318110
+  ☎️ <b>ስልክ</b>    : 0948398047
+  🤖 <b>አበልጻጊ</b>  : @melkam_5
             `,
 
             message_select_grade : `➖➖➖➖➖➖➖➖➖➖➖➖➖➖

@@ -92,7 +92,7 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                     data : {
                         student : {
                             connect : {
-                                tg_id : ctx.chat?.id
+                                tg_id : String(ctx.chat?.id)
                             }
                         },
                         bank_name : ctx.session.bank
@@ -109,7 +109,7 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                     data : {
                         student : {
                             connect : {
-                                tg_id : ctx.chat?.id
+                                tg_id : String(ctx.chat?.id)
                             }
                         },
                         bank_name : ctx.session.bank

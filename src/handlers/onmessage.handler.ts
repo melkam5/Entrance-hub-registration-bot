@@ -33,10 +33,10 @@ composer.on("message:contact" , async (ctx)=>{
 
 composer.on("message:text" , async (ctx)=>{
     if(ctx.msg.text == '❇️ Register'|| ctx.msg.text == '❇️ ለመመዝገብ' || ctx.msg.text == '/register' ) {
-        if( await prisma.registeredStudent.findFirst({where : {stusent_tg_Id : ctx.chat.id}})) {
+        if( await prisma.registeredStudent.findFirst({where : {stusent_tg_Id : String(ctx.chat.id)}})) {
             await ctx.reply(loc[lan as ObjectKey].message_notify_registerd);
         }
-        else if (await prisma.waitingListStudent.findFirst({where : {stusent_tg_Id : ctx.chat.id}})){
+        else if (await prisma.waitingListStudent.findFirst({where : {stusent_tg_Id : String(ctx.chat.id)}})){
             await ctx.reply(loc[lan as ObjectKey].message_wait_forReview)
         }
         else {
@@ -45,7 +45,7 @@ composer.on("message:text" , async (ctx)=>{
     }
     else if(ctx.msg.text == '🧧 Invite' || ctx.msg.text == '🧧 ጋብዝ' || ctx.msg.text == '/invite' ) {
        
-        await ctx.api.sendPhoto(ctx.chat.id , photoInvite , { caption : loc[lan as ObjectKey].message_invite_page(ctx), reply_markup: inviteMenu})
+        await ctx.api.sendPhoto(ctx.chat.id , photoInvite , { caption : loc[lan as ObjectKey].message_invite_page(ctx), parse_mode:"HTML", reply_markup: inviteMenu})
     }
     
     else if(ctx.msg.text == '🌐 Language' || ctx.msg.text =='🌐 ቋንቋ' || ctx.msg.text == '/lang' ) {
@@ -53,12 +53,14 @@ composer.on("message:text" , async (ctx)=>{
     }
     else if(ctx.msg.text == '📥 Contact us' || ctx.msg.text == '📥 አግኙን' || ctx.msg.text == '/contact' ) {
             await ctx.api.sendPhoto(ctx.chat.id, photoContact, { 
-                caption: loc[lan as ObjectKey].message_contact})
+                parse_mode: "HTML" ,
+                caption: loc[lan as ObjectKey].message_contact
+            })
    }
 
     else if(ctx.msg.text == "❌ Cancel" ) {
         await ctx.conversation.exit();
-        await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : ctx.userData.lang=='amh' ? mainMenuamh : mainMenu})
+        await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : ctx.userData.lang=='amh' ? mainMenuamh : mainMenu, parse_mode: "HTML" })
     }
     else if(ctx.msg.text == '❓ Help' || ctx.msg.text == '❓እርዳታ'|| ctx.msg.text == '/help' ) {
         await ctx.reply( loc.eng.message_helpmenu_one, {reply_markup : helpinlinekb});
@@ -66,13 +68,11 @@ composer.on("message:text" , async (ctx)=>{
     else if (ctx.msg.text == '🖌 አስተያየት' || ctx.msg.text == '🖌 FeedBack'|| ctx.msg.text == '/help'){
 
         const feedbackMessage = await prisma.feedback.findFirst({
-            where : {
-                index : ctx.session.feedbackState
-            }
+            orderBy : { date : 'asc'} 
         })
-        
-        await ctx.reply( `<< ${feedbackMessage?.content}
-From : ${feedbackMessage?.first_name} `, {reply_markup : feedbackmenu})
+        ctx.session.feedbackState = 0;
+        await ctx.reply( `🙶 <i>${feedbackMessage?.content}</i> 🙷
+<b>From :</b> ${feedbackMessage?.first_name} `, {reply_markup : feedbackmenu , parse_mode: "HTML"})
             
         
     }
@@ -83,7 +83,7 @@ From : ${feedbackMessage?.first_name} `, {reply_markup : feedbackmenu})
     }
 
     else {
-        await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : ctx.userData.lang=='amh' ? mainMenuamh : mainMenu})
+        await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : ctx.userData.lang=='amh' ? mainMenuamh : mainMenu, parse_mode: "HTML" })
     }
 })
 
