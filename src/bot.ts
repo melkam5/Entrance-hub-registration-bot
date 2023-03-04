@@ -12,7 +12,7 @@ import { FileFlavor, hydrateFiles } from "@grammyjs/files";
 import { nameConvo, schoolConvo, approvalConvo, feedbackConvo, cashOutConvo, adminConvo } from "./utiles/conversations";
 
 
-export const io = require("socket.io")(3000, {
+export const io = require("socket.io")(process.env.PORT, {
 	cors: {
 	  origin: [process.env.ADMIN_FRONT_END_URL],
 	},
