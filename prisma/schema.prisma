@@ -22,6 +22,7 @@ model User {
   invited         Refferal[]          @relation("userinvited")
   registered      RegisteredStudent?  @relation("userRegistered")
   waiting         waitingListStudent? @relation("userwaitingToBeRegistered")
+  finished_trial  Boolean             @default(false)
 }
 
 model Refferal {
@@ -43,10 +44,12 @@ model RegisteredStudent {
 }
 
 model waitingListStudent {
-  id            String @id @default(uuid())
-  stusent_tg_Id String @unique
+  id            String  @id @default(uuid())
+  stusent_tg_Id String  @unique
   bank_name     String
-  student       User   @relation("userwaitingToBeRegistered", fields: [stusent_tg_Id], references: [tg_id], onDelete: Cascade)
+  student       User    @relation("userwaitingToBeRegistered", fields: [stusent_tg_Id], references: [tg_id], onDelete: Cascade)
+  stream        String  @default("na")
+  caption       String?
 }
 
 model tutorialClass {
@@ -64,4 +67,9 @@ model feedback {
   first_name   String?
   message_type String?
   content      String?  @db.LongText
+}
+
+model admin {
+  userName String @id
+  password String
 }

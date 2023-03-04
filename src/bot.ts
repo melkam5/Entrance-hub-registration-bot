@@ -7,7 +7,8 @@ import { askUserData } from "./middlewares/askUserData.middlleware";
 import { fetchUserData } from "./middlewares/fechUserData.middleware";
 import { sessionMid } from "./middlewares/session.middleware";
 import { MyContext } from "./types/context.type";
-import handler from './handlers'
+import handler from './handlers';
+import { FileFlavor, hydrateFiles } from "@grammyjs/files";
 import { nameConvo, schoolConvo, approvalConvo, feedbackConvo, cashOutConvo, adminConvo } from "./utiles/conversations";
 
 
@@ -24,7 +25,7 @@ io.on("connection", (socketio: { id: any; }) => {
 
 export const bot = new Bot<MyContext>(process.env.BOT_TOKEN || '')
 
-
+bot.api.config.use(hydrateFiles(bot.token));
 bot.use(sessionMid)
 bot.use(fetchUserData)
 bot.use(conversations());
@@ -38,13 +39,7 @@ bot.use(askUserData)
 bot.use(inviteMenu);
 bot.use(registerMenu);
 bot.use(feedbackmenu);
-
-/*
- uprove decline meddleware
-*/
 bot.use(handler)
-
-// bot.catch(Bot);
 
 bot.api.setMyCommands([
 	{ command: "start", description: "Start the bot" },

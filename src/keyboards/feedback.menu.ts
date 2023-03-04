@@ -41,8 +41,8 @@ async function updateFeedback (ctx : MyContext) {
     }))[ctx.session.feedbackState]
     
     if (feedbackMessage){
-        await ctx.editMessageText(`🙶 ${feedbackMessage.content} 🙷
-From : ${feedbackMessage.first_name}`)
+        await ctx.editMessageText(`🙶 <i>${feedbackMessage.content}</i> 🙷
+<b>From</b> : ${feedbackMessage.first_name}`, {parse_mode : "HTML"})
 }}        
 
 export default feedbackmenu ;

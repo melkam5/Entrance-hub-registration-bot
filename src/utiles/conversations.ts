@@ -83,11 +83,11 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
             return;
         }
     } 
-    while (!ctx.message?.photo && !ctx.message?.document );
-    
+    while (!ctx.message?.photo /*&& !ctx.message?.document */ );
     if(ctx.message?.photo || ctx.message?.document){
         if(ctx.message?.photo) {
-            if(await ctx.api.sendPhoto(2007481788, ctx.message.photo[0].file_id)){
+            const file = await ctx.getFile();
+            const path = await file.download(`/home/entrance/images/reqimg${String(ctx.chat?.id)}`);
                 if(await prisma.waitingListStudent.create({
                     data : {
                         student : {
@@ -95,14 +95,16 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                                 tg_id : String(ctx.chat?.id)
                             }
                         },
-                        bank_name : ctx.session.bank
+                        bank_name : ctx.session.bank,
+                        stream : ctx.session.stream
                     }
                 })){
                     io.emit("update", "new-request") 
                     await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ", {reply_markup : ctx.userData.lang == 'amh' ? mainMenuamh : mainMenu }) 
                 }                
-        }}
-        
+        }
+
+        /*
         else if (ctx.message?.document){
             if(await ctx.api.sendDocument(2007481788, ctx.message.document.file_id)){
                 if(await prisma.waitingListStudent.create({
@@ -112,13 +114,16 @@ export async function approvalConvo(conversation : MyConversation, ctx : MyConte
                                 tg_id : String(ctx.chat?.id)
                             }
                         },
-                        bank_name : ctx.session.bank
+                        bank_name : ctx.session.bank,
+                        stream : ctx.session.stream,
+                        
                     }
                 })){
                     io.emit("update", "new-request") 
                     await ctx.reply("ማረጋገጫዎ ተልኳል እስክናረጋግጥ ድረስ በትእግስት ይጠብቁ")
                 }
         }}
+        */
     }
 }
 
@@ -147,11 +152,8 @@ export async function cashOutConvo(conversation : MyConversation, ctx : MyContex
     } 
     while (!ctx.message?.text );
     let bankaccount = ctx.message?.text
-
-
-    let approveAdmin = admin_one;
     
-    await ctx.api.sendMessage(admin_one , `Id : [ ${ctx.chat?.id} ] 
+   if( await ctx.api.sendMessage(admin_one , `Id : [ ${ctx.chat?.id} ] 
 ➖➖➖➖➖➖➖➖➖➖
 ➖➖➖➖➖➖➖➖➖➖
 ➖➖➖➖➖➖➖➖➖➖
@@ -167,7 +169,14 @@ export async function cashOutConvo(conversation : MyConversation, ctx : MyContex
  BankAccount : ${bankaccount}
  Amount : ${amount}
 ➖➖➖➖➖➖➖➖➖➖` 
-)}
+) ) {
+    ctx.reply(`ጥያቄዎት ተልኳል, ምላሽ እስከምንሰጥዎ በትዕግስት ይጠብቁ ‼️`)
+}
+else {
+    ctx.reply(`ጥያቄዎትን መላክ አልተቻለም እንደገና ይሞክሩ ‼️`)
+}
+
+}
 
 
 export async function feedbackConvo (conversation : MyConversation, ctx : MyContext ){

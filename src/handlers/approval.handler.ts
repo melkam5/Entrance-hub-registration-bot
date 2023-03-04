@@ -6,21 +6,24 @@ const prisma = new PrismaClient();
 
 export const approvalHandler = async (req: any, res: any) => {
 
-    const {tg_id, action, className, class_tg_id } = req.body;
-    try {    
-        if (await prisma.waitingListStudent.findFirst({where : {stusent_tg_Id : String(tg_id)}})){  
-
+    const {tg_id, action } = req.body;
+    try {
+        const student = await prisma.waitingListStudent.findFirst({where : {stusent_tg_Id : String(tg_id)}});
+        if (student){
+            const tutor_class = await prisma.tutorialClass.findFirst({where : {stream : student.stream } })  
+            
             if ( action == "approve") {
-
-                const ivtlink = await bot.api.createChatInviteLink(Number(class_tg_id),{member_limit: 1});
-                if( await bot.api.sendMessage(tg_id, `You are approved , use the following link to join . ! Beware this is a one time link  
+                const ivtlink = await bot.api.createChatInviteLink(Number( tutor_class?.class_tg_id),{member_limit: 1});
+                if( await bot.api.sendMessage(tg_id, ` You are approved 
+ <pre>use the following link to join , ! Beware this is a one time link </pre>  
   ---------------------
-ክፍያዎት በትክክል ተፈጽሟል , ቲቶሪያል የሚሰጥበትን ቻናል ለመቀላቅል ከታች ያለዉን ሊንክ ይጠቀሙ . ! ማስጠንቀቂያ ይህ ሊንክ ለእርስዎ ብቻ ነው የሚያገለግለዉ ለሌላ ሰው አያጋሩ  ,
-    ${ivtlink['invite_link']}` ) )
+ ክፍያዎት በትክክል ተፈጽሟል
+ <pre>ቲቶሪያል የሚሰጥበትን ቻናል ለመቀላቅል ከታች ያለዉን ሊንክ ይጠቀሙ . ! ማስጠንቀቂያ ይህ ሊንክ ለእርስዎ ብቻ ነው የሚያገለግለዉ ለሌላ ሰው አያጋሩ </pre>
+    ${ivtlink['invite_link']}`, {parse_mode : "HTML"} ) )
                 {
                     await prisma.registeredStudent.create({
                         data : {
-                            classof : className,
+                            classof : tutor_class?.name ?? 'd',
                             student : {
                                 connect : {
                                     tg_id : String(tg_id)
@@ -28,7 +31,7 @@ export const approvalHandler = async (req: any, res: any) => {
                             }
                         }
                 })
-        }
+            }
         }
         else if (action == "decline") {
             try {

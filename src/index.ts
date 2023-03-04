@@ -4,6 +4,7 @@ import { webhookCallback } from "grammy";
 import { bot } from "./bot";
 import { approvalHandler } from "./handlers/approval.handler";
 import bodyParser from "body-parser";
+import errorHandler from "./middlewares/errorHandler";
 
 const domain = String(process.env.DOMAIN);
 const secretPath = String(process.env.BOT_TOKEN);
@@ -14,7 +15,8 @@ app.use(`/${secretPath}`, webhookCallback(bot, "express"));
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.post("/api", approvalHandler);
-
+app.use(errorHandler);
 app.listen(Number(process.env.PORT), async () => {
   await bot.api.setWebhook(`${domain}/${secretPath}`);
 });
+

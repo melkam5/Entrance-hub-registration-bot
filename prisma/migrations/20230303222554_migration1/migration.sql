@@ -10,6 +10,7 @@ CREATE TABLE `User` (
     `stream` VARCHAR(191) NULL,
     `school` VARCHAR(191) NULL,
     `credited` INTEGER NOT NULL DEFAULT 0,
+    `finished_trial` BOOLEAN NOT NULL DEFAULT false,
 
     UNIQUE INDEX `User_id_key`(`id`),
     UNIQUE INDEX `User_tg_id_key`(`tg_id`),
@@ -31,7 +32,7 @@ CREATE TABLE `Refferal` (
 CREATE TABLE `RegisteredStudent` (
     `id` VARCHAR(191) NOT NULL,
     `stusent_tg_Id` VARCHAR(191) NOT NULL,
-    `registeredDate` DATETIME(3) NOT NULL,
+    `registeredDate` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `classof` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `RegisteredStudent_stusent_tg_Id_key`(`stusent_tg_Id`),
@@ -43,6 +44,8 @@ CREATE TABLE `waitingListStudent` (
     `id` VARCHAR(191) NOT NULL,
     `stusent_tg_Id` VARCHAR(191) NOT NULL,
     `bank_name` VARCHAR(191) NOT NULL,
+    `stream` VARCHAR(191) NOT NULL DEFAULT 'na',
+    `caption` VARCHAR(191) NULL,
 
     UNIQUE INDEX `waitingListStudent_stusent_tg_Id_key`(`stusent_tg_Id`),
     PRIMARY KEY (`id`)
@@ -67,6 +70,14 @@ CREATE TABLE `feedback` (
     `content` LONGTEXT NULL,
 
     PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `admin` (
+    `userName` VARCHAR(191) NOT NULL,
+    `password` VARCHAR(191) NOT NULL,
+
+    PRIMARY KEY (`userName`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
