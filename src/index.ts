@@ -1,4 +1,4 @@
-require('dotenv/config')
+/*require('dotenv/config')
 import express from "express";
 import { webhookCallback } from "grammy";
 import { bot } from "./bot";
@@ -21,3 +21,4 @@ app.listen(Number(process.env.PORT), async () => {
   await bot.api.setWebhook(`${domain}/${secretPath}`);
 });
 
+*/
