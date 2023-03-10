@@ -5,7 +5,6 @@ import { MyContext } from "../types/context.type";
 import { ObjectKey } from "../types/loc.type";
 import { mainMenuamh, mainMenu } from "../keyboards/mainmenu.custom.keyboard";
 import { PrismaClient } from "@prisma/client";
-import { bot } from "../bot";
 import { photoContact } from "../config/botData";
 import { approval } from "../utiles/functions";
 const prisma = new PrismaClient();
