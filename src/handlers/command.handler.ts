@@ -25,12 +25,12 @@ composer.command("cancel", async (ctx) => {
 composer.command('refresh', async (ctx)=>{
     if (ctx.chat.id == Number(process.env.ADMIN_ONE)){
         const pending = await prisma.waitingListStudent.findMany()
-        await pending.forEach(async(student)=>{
+        pending.forEach(async(student)=>{
             const stdu = await prisma.user.findFirst({where : {tg_id : student.stusent_tg_Id}})
             if (stdu){
                 ctx.replyWithPhoto(student.caption || photoContact
                     , { 
-                        caption: `Id : [ ${ctx.chat?.id} ] 
+                        caption: `Id : [ ${student.stusent_tg_Id} ] 
             ➖➖➖➖➖➖➖➖➖➖
             Name : ${stdu.registered_name}
             UserName : ${stdu.username}
