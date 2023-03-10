@@ -25,7 +25,8 @@ composer.command("cancel", async (ctx) => {
 composer.command('refresh', async (ctx)=>{
     if (ctx.chat.id == Number(process.env.ADMIN_ONE)){
         const pending = await prisma.waitingListStudent.findMany()
-        pending.forEach(async(student)=>{
+        if (pending){
+            pending.forEach(async(student)=>{
             const stdu = await prisma.user.findFirst({where : {tg_id : student.stusent_tg_Id}})
             if (stdu){
                 ctx.replyWithPhoto(student.caption || photoContact
@@ -43,8 +44,11 @@ composer.command('refresh', async (ctx)=>{
                     , reply_markup : approval 
                 })
             }
+            }
+        )}
+        else {
+            await ctx.reply(`<i>no one is on the waiting list</i>` , {parse_mode: "HTML" })    
         }
-      )
     }
     else {
         await ctx.reply(loc[lan as ObjectKey].message_select_option , {reply_markup : ctx.userData.lang=='amh' ? mainMenuamh : mainMenu, parse_mode: "HTML" })
