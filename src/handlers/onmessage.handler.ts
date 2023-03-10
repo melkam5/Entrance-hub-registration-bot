@@ -1,5 +1,5 @@
 import { Composer } from "grammy";
-import { photoPyment, photoInvite, photoContact, messangeradmin } from "../config/botData";
+import { photoPyment, photoInvite, photoContact} from "../config/botData";
 import { loc } from "../config/locales";
 import { askLanguage} from "../utiles/functions";
 import feedbackmenu from "../keyboards/feedback.menu";
@@ -76,8 +76,8 @@ composer.on("message:text" , async (ctx)=>{
             
         
     }
-    else if (ctx.msg.text == 'admin8964' && ctx.chat.id == messangeradmin){
-        if (ctx.chat.id == messangeradmin){
+    else if (ctx.msg.text == 'admin8964' && ctx.chat.id == Number(process.env.messangeradmin)){
+        if (ctx.chat.id == Number(process.env.messangeradmin)){
            await ctx.conversation.enter("adminConvo")
         }
     }

@@ -11,9 +11,6 @@ export interface UserDataInterface {
     credited :number ;
 } 
 
-
-
-
 export interface RefferalInterface {
     invited : number;
     payed : number;

@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { bot } from "../bot";
-import { private_channel_na, private_channel_so } from "../config/botData";
 const prisma = new PrismaClient();
 
 
